@@ -160,7 +160,7 @@ function sendFile(file) {
 
 // удаляем формы комментариев при загрузке нового изображения
 function removeForm() {
-    Array.from(commentsForm).forEach(comment => {comment.remove()});
+    Array.from(document.querySelectorAll('.comments__form')).forEach(comment => {comment.remove()});
 }
 
 // получаем информацию о файле
@@ -231,7 +231,7 @@ commentsOff.addEventListener('click', () => {
 
 canvas.addEventListener('click', (event) => {
     hideForms();
-    removeForm();
+    //removeForm();
     if (menuComments.dataset.state === 'selected' && commentsOn.checked) {
         const newMessage = createCommentForm(event.offsetX, event.offsetY);
         newMessage.querySelector('.comments__marker-checkbox').checked = true;
@@ -279,7 +279,7 @@ function createWrapforComment() {
             });
             currentForm.style.zIndex = 3;
             hideForms(currentForm);
-            removeForm(currentForm);
+            removeCurrentForm(currentForm);
         }
     });
 }
@@ -373,7 +373,8 @@ function hideForms(currentForm = null) {
     });
 }
 
-function removeForm(currentForm = null) {
+function removeCurrentForm(currentForm) {
+   
     document.querySelectorAll('.comments__form').forEach(form => {
         if ( form !== currentForm && form.querySelectorAll('.comment').length < 2) {
             form.remove();
